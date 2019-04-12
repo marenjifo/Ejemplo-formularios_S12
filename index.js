@@ -24,8 +24,11 @@ app.get('/',function(request,response){
     response.render('home',contexto);
 });
 
-
-
+//3. Crear ruta post: para crear informacion
+app.post('/login',function(request,response){
+    console.log('login');
+    response.send('hola');
+});
 
 
 
