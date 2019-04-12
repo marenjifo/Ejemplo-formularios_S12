@@ -1,12 +1,17 @@
 //1. Importar librerias
 var express = require('express');
 var exphbs = require('express-handlebars');
+//4.
+const fs = require('fs');
+var cont = 0;
 
 //1. Crear app de express
 var app = express();
 
 //1. Establecer la carpeta public como estatica
 app.use(express.static('public'));
+//3.
+app.use(express.urlencoded({ extended: true }));
 
 //1. Registro de handlebars
 app.engine('handlebars',exphbs());
@@ -24,10 +29,18 @@ app.get('/',function(request,response){
     response.render('home',contexto);
 });
 
+function archivoEscrito(){
+    console.log('Archivo escrito')
+}
+
 //3. Crear ruta post: para crear informacion
 app.post('/login',function(request,response){
-    console.log('login');
+    console.log(request.body.correo);
+    console.log(request.body.contrasena);
+    fs.writeFile('usuario' + cont + '.txt', request.body.correo + '\n' + request.body.contrasena,'utf8',archivoEscrito);
+    cont++; 
     response.send('hola');
+    //respond.redirect
 });
 
 
